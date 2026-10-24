@@ -57,10 +57,31 @@
   translate: 0 0;
 }
 
+.center {
+  --sheet-start: 0 12px;
+  inset: 0;
+  width: min(440px, calc(100vw - 32px));
+  max-height: min(80dvh, 640px);
+  margin: auto;
+  border-radius: var(--radius-card);
+  opacity: 0;
+  translate: 0 12px;
+}
+
+.center[open] {
+  opacity: 1;
+  translate: 0 0;
+}
+
 @starting-style {
   .bottom[open],
-  .right[open] {
+  .right[open],
+  .center[open] {
     translate: var(--sheet-start);
+  }
+
+  .center[open] {
+    opacity: 0;
   }
 
   .sheet[open]::backdrop {
@@ -82,7 +103,23 @@
     opacity: 1;
   }
 
-  @starting-style {
+  .center {
+  --sheet-start: 0 12px;
+  inset: 0;
+  width: min(440px, calc(100vw - 32px));
+  max-height: min(80dvh, 640px);
+  margin: auto;
+  border-radius: var(--radius-card);
+  opacity: 0;
+  translate: 0 12px;
+}
+
+.center[open] {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@starting-style {
     .bottom[open],
     .right[open] {
       translate: 0 0;
