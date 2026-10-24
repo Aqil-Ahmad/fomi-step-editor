@@ -29,10 +29,16 @@ export function InstructionBubble({
   const canSubmit = text.trim().length > 0 && !processing;
 
   useEffect(() => {
+    const previous = document.activeElement;
     const field = fieldRef.current;
-    if (!field) return;
-    field.focus();
-    field.setSelectionRange(field.value.length, field.value.length);
+    field?.focus();
+    field?.setSelectionRange(field.value.length, field.value.length);
+
+    return () => {
+      if (previous instanceof HTMLElement && previous !== document.body && previous.isConnected) {
+        previous.focus({ preventScroll: true });
+      }
+    };
   }, []);
 
   function submit(submitMode) {
