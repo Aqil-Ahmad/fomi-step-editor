@@ -1,18 +1,23 @@
 "use client";
 
+import { useState } from "react";
+import dynamic from "next/dynamic";
 import { MotionConfig } from "motion/react";
 import { EditView } from "@/components/editor/EditView";
 import { ShootView } from "@/components/shoot/ShootView";
 import { ToastProvider } from "@/components/ui/Toast";
+import { useRememberedView } from "@/hooks/useRememberedView";
 import { useShoot } from "@/hooks/useShoot";
 import { useShortcuts } from "@/hooks/useShortcuts";
 import { useWorkspaceUrl } from "@/hooks/useWorkspaceUrl";
 import { useEditorState, useWorkspace, WorkspaceProvider } from "@/state/WorkspaceProvider";
 import { TopBar } from "./TopBar";
 
+const ShortcutsSheet = dynamic(() => import("./ShortcutsSheet"));
+
 const STRENGTH_STEP = 0.05;
 
-function useEditorShortcuts({ view, setView }) {
+function useEditorShortcuts({ view, setView, showShortcuts }) {
   const { dispatch } = useWorkspace();
   const state = useEditorState();
   const inEdit = view === "edit";
@@ -50,6 +55,7 @@ function useEditorShortcuts({ view, setView }) {
 
   useShortcuts({
     e: () => setView(inEdit ? "shoot" : "edit"),
+    "?": showShortcuts,
     ...(inEdit ? editHandlers : {}),
   });
 }
@@ -58,7 +64,9 @@ function WorkspaceLayout() {
   const { project, rootRef } = useWorkspace();
   const { view, photoId, setView, openPhoto } = useWorkspaceUrl(project);
   const shoot = useShoot(project);
-  useEditorShortcuts({ view, setView });
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  useRememberedView(project.id, { view, photoId });
+  useEditorShortcuts({ view, setView, showShortcuts: () => setShortcutsOpen(true) });
 
   function applyToShoot() {
     shoot.startApply();
@@ -79,6 +87,7 @@ function WorkspaceLayout() {
           onShowShoot={() => setView("shoot")}
         />
       )}
+      {shortcutsOpen && <ShortcutsSheet open onClose={() => setShortcutsOpen(false)} />}
     </div>
   );
 }
