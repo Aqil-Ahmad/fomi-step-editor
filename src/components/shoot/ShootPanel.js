@@ -27,12 +27,11 @@ export function ShootPanel({ look, steps, summary, driftPhotos, exportSizes, sho
   const canExport = photoCount > 0 && selectedSizes.length > 0;
 
   return (
-    <aside aria-label="Look, checks and export" className="flex min-h-0 flex-col border-l border-line bg-panel">
-      <div className="min-h-0 flex-1 divide-y divide-line-2 overflow-y-auto">
+    <aside aria-label="Look, checks and export" className="flex flex-col border-line bg-panel max-lg:border-t lg:min-h-0 lg:border-l">
+      <div className="flex-1 divide-y divide-line-2 lg:min-h-0 lg:overflow-y-auto">
         <PanelSection
           title={look.name}
           count={`${steps.length} steps`}
-          labelId="look-heading"
           action={
             <Button variant="ghost" onClick={onEditLook} className="h-7.5 px-1.5">
               Edit look
@@ -51,7 +50,7 @@ export function ShootPanel({ look, steps, summary, driftPhotos, exportSizes, sho
           </ol>
         </PanelSection>
 
-        <PanelSection title={`Checks on ${summary.checkedCount} photos`} labelId="shoot-checks-heading">
+        <PanelSection title={`Checks on ${summary.checkedCount} photos`}>
           {summary.checkedCount === 0 ? (
             <p className="py-2 text-sm text-muted">Checks run on each photo as the look is applied.</p>
           ) : (
@@ -80,7 +79,7 @@ export function ShootPanel({ look, steps, summary, driftPhotos, exportSizes, sho
           )}
         </PanelSection>
 
-        <PanelSection title="Export sizes" labelId="export-heading">
+        <PanelSection title="Export sizes">
           <div className="mt-1 grid gap-1">
             {exportSizes.map((size) => (
               <Checkbox
@@ -102,6 +101,7 @@ export function ShootPanel({ look, steps, summary, driftPhotos, exportSizes, sho
       </div>
 
       <PanelFooter
+        className="max-lg:sticky max-lg:bottom-0"
         note={exportNote({
           driftPhotos,
           inProgress: summary.inProgress,

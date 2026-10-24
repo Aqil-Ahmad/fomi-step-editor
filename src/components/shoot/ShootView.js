@@ -63,8 +63,8 @@ export function ShootView({ shoot, onOpenPhoto, onEditLook }) {
   }
 
   return (
-    <div className="grid min-h-0 grid-cols-[minmax(0,1fr)_376px]">
-      <main id="main" className="min-h-0 overflow-y-auto px-7 pt-5.5 pb-6">
+    <div className="grid min-h-0 max-lg:overflow-y-auto lg:grid-cols-[minmax(0,1fr)_340px] 2xl:grid-cols-[minmax(0,1fr)_376px]">
+      <main id="main" className="px-4 pt-5 pb-6 sm:px-7 sm:pt-5.5 lg:min-h-0 lg:overflow-y-auto">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <h1 className="font-wide text-display font-heavy tracking-title">
@@ -121,7 +121,10 @@ export function ShootView({ shoot, onOpenPhoto, onEditLook }) {
           </div>
         )}
 
-        <motion.ul layout className="mt-5 grid grid-cols-6 gap-4">
+        <motion.ul
+          layout
+          className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7 4xl:grid-cols-8"
+        >
           <AnimatePresence mode="popLayout" initial={false}>
             {visiblePhotos.map((photo) => {
               const entry = state.statuses[photo.id] ?? { status: "original" };
