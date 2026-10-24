@@ -10,6 +10,8 @@ import styles from "./PhotoStack.module.css";
 
 const CROSSFADE = { duration: 0.3, ease: "easeOut" };
 
+export const CANVAS_SIZES = "(min-width: 1536px) 760px, (min-width: 768px) 640px, calc(100vw - 80px)";
+
 function AdjustmentLayer({ adjustment, src, polygons }) {
   const { region, filter } = adjustment;
   const isFullFrame = region === WHOLE_PHOTO || region === FALLBACK_REGION;
@@ -18,9 +20,9 @@ function AdjustmentLayer({ adjustment, src, polygons }) {
 
   return (
     <div className={styles.layer} style={{ opacity: strengthOpacity(adjustment) }}>
-      <Image src={src} alt="" fill unoptimized className={styles.image} style={{ filter, clipPath: clip }} />
+      <Image src={src} alt="" fill sizes={CANVAS_SIZES} className={styles.image} style={{ filter, clipPath: clip }} />
       {protectedShapes.map((polygon, index) => (
-        <Image key={index} src={src} alt="" fill unoptimized className={styles.image} style={{ clipPath: toClipPath(polygon) }} />
+        <Image key={index} src={src} alt="" fill sizes={CANVAS_SIZES} className={styles.image} style={{ clipPath: toClipPath(polygon) }} />
       ))}
     </div>
   );
@@ -45,7 +47,7 @@ export function PhotoStack({ composition, polygons, alt, priority = false, class
               src={layer.src}
               alt={index === 0 ? alt : ""}
               fill
-              unoptimized
+              sizes={CANVAS_SIZES}
               priority={priority && index === 0}
               className={styles.image}
               style={{ opacity: strengthOpacity(layer) }}
@@ -73,7 +75,7 @@ export function PhotoStack({ composition, polygons, alt, priority = false, class
             exit={{ opacity: 0 }}
             transition={CROSSFADE}
           >
-            <Image src={overlay.src} alt="" fill unoptimized className={styles.image} style={{ opacity: strengthOpacity(overlay) }} />
+            <Image src={overlay.src} alt="" fill sizes={CANVAS_SIZES} className={styles.image} style={{ opacity: strengthOpacity(overlay) }} />
           </motion.div>
         ))}
       </AnimatePresence>
@@ -93,7 +95,7 @@ export function StaticPhoto({ src, alt, priority = false, className }) {
           exit={{ opacity: 0 }}
           transition={CROSSFADE}
         >
-          <Image src={src} alt={alt} fill priority={priority} sizes="(min-width: 1024px) 50vw, 100vw" className={styles.image} />
+          <Image src={src} alt={alt} fill priority={priority} sizes={CANVAS_SIZES} className={styles.image} />
         </motion.div>
       </AnimatePresence>
     </div>

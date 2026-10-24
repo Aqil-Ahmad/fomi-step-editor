@@ -53,7 +53,7 @@ export function LocksPanel({ onHighlight }) {
                 <p className="text-base font-semibold">{lock.title}</p>
                 <p className="text-caption text-muted">{lock.detail}</p>
                 {confirmingId === lock.id && (
-                  <div role="alert" className="mt-2 rounded-control bg-drift-bg p-2.5 text-sm text-drift">
+                  <div role="alert" className="mt-2 rounded-control bg-drift-bg p-2.5 text-sm text-drift-ink">
                     <p>Unlock {lock.title.toLowerCase()}? Steps will be able to change it and its check stops running.</p>
                     <div className="mt-2 flex gap-1.5">
                       <Button variant="ink" size="sm" onClick={() => unlock(lock)}>

@@ -63,13 +63,13 @@ export function ShootPanel({ look, steps, summary, driftPhotos, exportSizes, sho
                       aria-hidden="true"
                       className={cn(
                         "grid size-5 shrink-0 place-items-center rounded-full",
-                        failing ? "bg-drift-bg text-xs font-black text-drift" : "text-pass",
+                        failing ? "bg-drift-bg text-xs font-black text-drift-ink" : "text-pass",
                       )}
                     >
                       {failing ? "!" : <Check size={12} strokeWidth={3.4} />}
                     </span>
                     <span className="flex-1">{check.title}</span>
-                    <span className={cn("text-sm font-semibold", failing && "text-drift")}>
+                    <span className={cn("text-sm font-semibold", failing && "text-drift-ink")}>
                       <CountUp value={check.passing} /> of <CountUp value={check.total} />
                     </span>
                   </li>

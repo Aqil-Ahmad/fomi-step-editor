@@ -54,7 +54,7 @@ export function FixCard({ photo, plan, outline, stepNumber, fixing, error, onFix
       </figure>
 
       <div className={cn(styles.details, "flex flex-col pt-1")}>
-        <span className="self-start rounded-chip bg-drift-bg px-2 py-1 text-xs font-bold text-drift">
+        <span className="self-start rounded-chip bg-drift-bg px-2 py-1 text-xs font-bold text-drift-ink">
           Photo {photo.n} needs a fix
         </span>
         <h2 id="fix-heading" className="mt-3 mb-1.5 text-title font-heavy tracking-heading">
@@ -64,7 +64,7 @@ export function FixCard({ photo, plan, outline, stepNumber, fixing, error, onFix
           {plan.reason} {plan.explanation}
         </p>
         {error && (
-          <p role="alert" className="mt-3 text-sm font-semibold text-drift">
+          <p role="alert" className="mt-3 text-sm font-semibold text-drift-ink">
             {error}
           </p>
         )}

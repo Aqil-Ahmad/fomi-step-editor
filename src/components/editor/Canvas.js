@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { preload } from "react-dom";
+import { getImageProps } from "next/image";
 import { AnimatePresence } from "motion/react";
 import { Segmented } from "@/components/ui/Segmented";
 import { useToast } from "@/components/ui/Toast";
@@ -20,7 +21,7 @@ import { InstructionBubble } from "./InstructionBubble";
 import { LockNotice } from "./LockNotice";
 import { ObjectOverlay } from "./ObjectOverlay";
 import { ObjectsMenu } from "./ObjectsMenu";
-import { PhotoStack, StaticPhoto } from "./PhotoStack";
+import { CANVAS_SIZES, PhotoStack, StaticPhoto } from "./PhotoStack";
 import { ToolPalette } from "./ToolPalette";
 import styles from "./Canvas.module.css";
 
@@ -143,7 +144,10 @@ export function Canvas({ photo, display, isReference, highlightRegion, className
   const processingRegion = isReference && state.processing?.region;
 
   if (isReference) {
-    for (const src of allVariantSources(project.editor)) preload(src, { as: "image", fetchPriority: "low" });
+    for (const src of allVariantSources(project.editor)) {
+      const { props } = getImageProps({ src, alt: "", fill: true, sizes: CANVAS_SIZES });
+      preload(props.src, { as: "image", imageSrcSet: props.srcSet, imageSizes: props.sizes, fetchPriority: "low" });
+    }
   }
 
   function pick(region) {
@@ -173,7 +177,7 @@ export function Canvas({ photo, display, isReference, highlightRegion, className
     <main id="main" className={cn(styles.canvas, className)}>
       <div className={styles.header}>
         <h1 className="text-base font-bold">Photo {photo.n}</h1>
-        <span className="text-caption text-muted max-sm:hidden">{photo.file}</span>
+        <span className="text-caption text-ink-2 max-sm:hidden">{photo.file}</span>
         {isReference && (
           <div className={styles.headerTools}>
             <ObjectsMenu

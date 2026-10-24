@@ -7,17 +7,6 @@ import styles from "./PhotoTile.module.css";
 
 const TILE_SIZES = "(min-width: 1536px) 14vw, (min-width: 1024px) 16vw, (min-width: 768px) 30vw, 50vw";
 
-function describe(photo, entry, driftLabel, stepCount) {
-  const states = {
-    ready: "ready",
-    drift: `${driftLabel.toLowerCase()}, needs a fix`,
-    applying: `applying step ${entry.step} of ${stepCount}`,
-    queued: "queued",
-    original: "look not applied yet",
-  };
-  return `Photo ${photo.n}, ${states[entry.status]}`;
-}
-
 function StatusChip({ status, driftLabel }) {
   if (status === "ready") {
     return (
@@ -27,7 +16,14 @@ function StatusChip({ status, driftLabel }) {
       </span>
     );
   }
-  if (status === "drift") return <span className={cn(styles.chip, styles.driftChip)}>{driftLabel}</span>;
+  if (status === "drift") {
+    return (
+      <span className={cn(styles.chip, styles.driftChip)}>
+        {driftLabel}
+        <span className="sr-only">, needs a fix</span>
+      </span>
+    );
+  }
   if (status === "queued") return <span className={cn(styles.chip, "text-ink-2")}>Queued</span>;
   if (status === "original") return <span className={cn(styles.chip, "text-ink-2")}>Original</span>;
   return null;
@@ -41,7 +37,6 @@ export function PhotoTile({ photo, entry, resultSrc, labelBox, driftLabel, stepC
     <button
       type="button"
       onClick={onOpen}
-      aria-label={describe(photo, entry, driftLabel, stepCount)}
       className={cn(styles.tile, status === "drift" && styles.flagged, isInProgress(status) && styles.busy)}
     >
       <Image src={photo.orig} alt="" fill sizes={TILE_SIZES} className={styles.image} />
@@ -52,7 +47,10 @@ export function PhotoTile({ photo, entry, resultSrc, labelBox, driftLabel, stepC
         sizes={TILE_SIZES}
         className={cn(styles.image, styles.result, revealed && styles.revealed)}
       />
-      <span className={styles.number}>{photo.n}</span>
+      <span className={styles.number}>
+        <span className="sr-only">Photo </span>
+        {photo.n}
+      </span>
 
       {status === "drift" && labelBox && (
         <span
