@@ -330,7 +330,11 @@
         "failedCheck": "label",
         "file": "/media/shoot/p06-drift.webp",
         "reason": "Step 3 redrew the L in HALO as an I.",
-        "fix": "Restore label"
+        "fix": "Restore label",
+        "stepId": "s3",
+        "label": "Label changed",
+        "headline": "The model changed a letter on the label",
+        "explanation": "The label is locked, so we stopped before export. Restore puts the original label back and keeps the new background and light."
       },
       "11": {
         "slow": true,
