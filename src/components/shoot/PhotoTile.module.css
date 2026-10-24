@@ -1,0 +1,133 @@
+.tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--color-line);
+  text-align: left;
+  transition: scale 150ms ease-out, box-shadow 200ms ease-out;
+}
+
+.tile:hover {
+  box-shadow: 0 10px 24px -16px rgb(27 27 25 / 0.55);
+}
+
+.tile:active {
+  scale: 0.99;
+}
+
+.tile:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+.flagged {
+  outline: 2.5px solid var(--color-drift);
+  outline-offset: 3px;
+}
+
+.flagged:focus-visible {
+  outline: 2.5px solid var(--color-ink);
+}
+
+.image {
+  object-fit: cover;
+}
+
+.result {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 450ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.revealed {
+  clip-path: inset(0);
+}
+
+.busy::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(247 247 244 / 0.42);
+}
+
+.number {
+  position: absolute;
+  top: 7px;
+  left: 8px;
+  color: var(--color-white);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-bold);
+  text-shadow: 0 1px 3px rgb(0 0 0 / 0.45);
+}
+
+.chip {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  display: flex;
+  height: 24px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border-radius: var(--radius-chip);
+  background: rgb(255 255 255 / 0.94);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-semibold);
+}
+
+.driftChip {
+  background: var(--color-drift);
+  color: var(--color-white);
+}
+
+.labelBox {
+  position: absolute;
+  top: calc(var(--y0) - 3px);
+  left: calc(var(--x0) - 3px);
+  width: calc(var(--x1) - var(--x0) + 6px);
+  height: calc(var(--y1) - var(--y0) + 6px);
+  border: 1.5px dashed var(--color-white);
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgb(169 98 12 / 0.8);
+}
+
+.progress {
+  position: absolute;
+  z-index: 1;
+  right: 10px;
+  bottom: 12px;
+  left: 10px;
+}
+
+.track {
+  display: block;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgb(27 27 25 / 0.15);
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--color-ink);
+  transform: scaleX(var(--progress));
+  transform-origin: left;
+  transition: transform 400ms linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .result {
+    clip-path: none;
+    opacity: 0;
+    transition: opacity 300ms ease-out;
+  }
+
+  .revealed {
+    opacity: 1;
+  }
+}
