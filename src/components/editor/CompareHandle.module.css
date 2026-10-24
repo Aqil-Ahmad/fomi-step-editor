@@ -1,0 +1,51 @@
+.line {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background: var(--color-white);
+  box-shadow: 0 0 0 0.5px rgb(0 0 0 / 0.08);
+  pointer-events: none;
+}
+
+.knob {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-white);
+  box-shadow: var(--shadow-knob);
+  color: var(--color-ink);
+  cursor: ew-resize;
+  pointer-events: auto;
+  touch-action: none;
+  transition: scale 150ms ease-out;
+}
+
+.knob:hover {
+  scale: 1.06;
+}
+
+.knob:active {
+  scale: 0.96;
+}
+
+.knob:focus-visible {
+  outline-offset: 3px;
+}
+
+@media (pointer: coarse) {
+  .knob::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+  }
+}

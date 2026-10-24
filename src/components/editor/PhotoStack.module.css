@@ -1,0 +1,17 @@
+.stack {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--color-panel);
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+}
+
+.image {
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}

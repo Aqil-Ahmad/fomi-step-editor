@@ -51,3 +51,13 @@ export function composePhoto(editor, steps, upTo) {
 export function compareTargetLabel(upTo) {
   return upTo === 0 ? "Original" : `After step ${upTo}`;
 }
+
+export function strengthVar(stepId) {
+  return `--strength-${stepId}`;
+}
+
+export function strengthOpacity({ stepId, strength, invert }) {
+  if (!stepId) return undefined;
+  const live = `var(${strengthVar(stepId)}, ${strength})`;
+  return invert ? `calc(1 - ${live})` : live;
+}

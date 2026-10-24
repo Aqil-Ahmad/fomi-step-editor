@@ -1,4 +1,4 @@
-import { pointInPolygon } from "./geometry";
+import { boundingBox, clampBox, pointInPolygon } from "./geometry";
 
 export const HIT_ORDER = ["label", "bottle", "stones"];
 export const FALLBACK_REGION = "backdrop";
@@ -27,4 +27,11 @@ export function objectList(regionNames, customRegions) {
     ...OBJECT_ORDER.map((id) => ({ id, label: regionNames[id] })),
     ...customRegions.map((region) => ({ id: region.id, label: region.label })),
   ];
+}
+
+export function regionAnchor(region, polygons) {
+  const polygon = polygons[region];
+  if (!polygon) return { fullFrame: true, x0: 0, y0: 0, x1: 1, y1: 1, cy: 0.5 };
+  const box = clampBox(boundingBox(polygon));
+  return { fullFrame: false, ...box, cy: (box.y0 + box.y1) / 2 };
 }
