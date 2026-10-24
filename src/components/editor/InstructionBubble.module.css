@@ -8,6 +8,13 @@
   transform-origin: left center;
 }
 
+@media (max-width: 1023.98px) {
+  .bubble {
+    width: min(100%, 440px);
+    transform-origin: bottom center;
+  }
+}
+
 .field {
   display: block;
   width: 100%;

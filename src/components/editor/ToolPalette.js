@@ -7,8 +7,8 @@ const TOOLS = [
   { id: "lock", label: "Lock an area", shortcut: "L", Icon: Lock },
 ];
 
-function Separator() {
-  return <span aria-hidden="true" className="mx-1.25 h-5 w-px bg-line" />;
+function Separator({ className }) {
+  return <span aria-hidden="true" className={cn("mx-1.25 h-5 w-px bg-line", className)} />;
 }
 
 export function ToolPalette({ tool, compareOn, zoom, canUndo, canRedo, dispatch, className }) {
@@ -44,6 +44,7 @@ export function ToolPalette({ tool, compareOn, zoom, canUndo, canRedo, dispatch,
           size="md"
           pressed={tool === id}
           onClick={() => dispatch({ type: "tool/set", tool: tool === id ? "select" : id })}
+          className="max-md:hidden"
         >
           <Icon aria-hidden="true" size={17} strokeWidth={2} />
         </IconButton>
@@ -57,8 +58,8 @@ export function ToolPalette({ tool, compareOn, zoom, canUndo, canRedo, dispatch,
       >
         <Columns2 aria-hidden="true" size={17} strokeWidth={2} />
       </IconButton>
-      <Separator />
-      <output aria-label="Zoom" className="flex h-8.5 min-w-11 items-center justify-center text-sm font-semibold text-ink-2">
+      <Separator className="max-md:hidden" />
+      <output aria-label="Zoom" className="flex h-8.5 min-w-11 items-center justify-center text-sm font-semibold text-ink-2 max-md:hidden">
         {zoom}%
       </output>
       <Separator />

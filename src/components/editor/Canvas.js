@@ -119,7 +119,7 @@ function ShootPhotoComparison({ photo, display, compareOn }) {
   );
 }
 
-export function Canvas({ photo, display, isReference, highlightRegion }) {
+export function Canvas({ photo, display, isReference, highlightRegion, className }) {
   const { project, outlines, dispatch, actions } = useWorkspace();
   const state = useEditorState();
   const toast = useToast();
@@ -170,10 +170,10 @@ export function Canvas({ photo, display, isReference, highlightRegion }) {
   }
 
   return (
-    <main id="main" className={styles.canvas}>
+    <main id="main" className={cn(styles.canvas, className)}>
       <div className={styles.header}>
         <h1 className="text-base font-bold">Photo {photo.n}</h1>
-        <span className="text-caption text-muted">{photo.file}</span>
+        <span className="text-caption text-muted max-sm:hidden">{photo.file}</span>
         {isReference && (
           <div className={styles.headerTools}>
             <ObjectsMenu
@@ -189,6 +189,7 @@ export function Canvas({ photo, display, isReference, highlightRegion }) {
       <Segmented
         label="Crop marks"
         caption="Crop marks"
+        captionClassName="max-sm:hidden"
         options={CROP_OPTIONS}
         value={state.crop}
         onChange={(crop) => dispatch({ type: "crop/set", crop })}

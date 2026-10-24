@@ -26,21 +26,25 @@ export function TopBar({ view, onViewChange }) {
   }
 
   return (
-    <header className="relative col-span-full flex h-14 items-center gap-4.5 border-b border-line bg-panel pr-4 pl-5.5">
+    <header className="relative col-span-full flex h-14 items-center gap-3 border-b border-line bg-panel pr-3 pl-4 sm:gap-4.5 sm:pr-4 sm:pl-5.5">
       <span className="font-wordmark text-wordmark font-black tracking-title">Fomi</span>
-      <span aria-hidden="true" className="h-5.5 w-px bg-line" />
-      <ProjectSwitcher project={project} />
+      <span aria-hidden="true" className="h-5.5 w-px bg-line max-sm:hidden" />
+      <div className="min-w-0 max-sm:hidden">
+        <ProjectSwitcher project={project} />
+      </div>
       <Segmented
         variant="soft"
         label="View"
         options={VIEWS}
         value={view}
         onChange={onViewChange}
-        className="absolute left-1/2 -translate-x-1/2"
+        className="mx-auto lg:absolute lg:left-1/2 lg:-translate-x-1/2"
       />
-      <div className="ml-auto flex items-center gap-2.5">
-        <Presence people={project.collaborators} />
-        <Button variant="line" onClick={shareLink}>
+      <div className="flex items-center gap-2.5 lg:ml-auto">
+        <div className="max-md:hidden">
+          <Presence people={project.collaborators} />
+        </div>
+        <Button variant="line" onClick={shareLink} className="max-sm:hidden">
           Share
         </Button>
         <Button variant="ink" onClick={() => onViewChange("shoot")}>

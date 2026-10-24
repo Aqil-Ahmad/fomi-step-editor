@@ -23,12 +23,16 @@
 }
 
 .frame {
-  --photo-h: min(100cqh - 184px, (100cqw - 496px) * 1.25);
+  --reserve: clamp(80px, 100cqw - 608px, 496px);
+  --shift: max(0px, var(--reserve) - 336px);
+  --photo-h: min(100cqh - 184px, (100cqw - var(--reserve)) * 1.25);
+  --photo-w: calc(var(--photo-h) * 0.8);
+  --frame-left: calc((100cqw - var(--shift) - var(--photo-w)) / 2);
   --pos: 47%;
   position: absolute;
   top: 74px;
-  left: calc((100cqw - 160px - var(--photo-h) * 0.8) / 2);
-  width: calc(var(--photo-h) * 0.8);
+  left: var(--frame-left);
+  width: var(--photo-w);
   height: var(--photo-h);
 }
 
@@ -155,7 +159,7 @@
   position: absolute;
   z-index: 20;
   top: clamp(-40px, calc(var(--cy) - 92px), calc(100% - 220px));
-  left: calc(100% + 24px);
+  left: min(calc(100% + 24px), calc(100cqw - var(--frame-left) - 284px));
 }
 
 .connector {
@@ -261,5 +265,22 @@
 
   .cropFrame {
     transition: none;
+  }
+}
+
+@media (max-width: 1023.98px) {
+  .bubbleAnchor {
+    position: fixed;
+    z-index: 40;
+    top: auto;
+    right: 16px;
+    bottom: calc(var(--bottom-inset, 0px) + 12px);
+    left: 16px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .connector {
+    display: none;
   }
 }
