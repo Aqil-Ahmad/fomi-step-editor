@@ -88,6 +88,9 @@ export function editorReducer(state, action) {
       return commit(state, patchStep(doc, action.stepId, { visible: !step.visible }));
     }
 
+    case "step/patch":
+      return commit(state, patchStep(doc, action.stepId, action.patch));
+
     case "step/strengthCommitted": {
       if (action.from === action.to) return state;
       const previous = patchStep(doc, action.stepId, { strength: action.from });
