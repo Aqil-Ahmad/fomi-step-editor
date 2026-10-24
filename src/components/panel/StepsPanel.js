@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { Reorder } from "motion/react";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { IconButton } from "@/components/ui/IconButton";
@@ -12,6 +14,14 @@ export function StepsPanel({ isReference, referenceNumber, onOpenReference }) {
   const { project, dispatch, actions } = useWorkspace();
   const state = useEditorState();
   const { steps, regions } = state.doc;
+  const [dragOrder, setDragOrder] = useState(null);
+  const order = dragOrder ?? steps.map((step) => step.id);
+  const byId = new Map(steps.map((step) => [step.id, step]));
+
+  function finishDrag() {
+    if (dragOrder) dispatch({ type: "step/reorder", stepIds: dragOrder });
+    setDragOrder(null);
+  }
 
   return (
     <PanelSection
@@ -37,8 +47,8 @@ export function StepsPanel({ isReference, referenceNumber, onOpenReference }) {
           </Button>
         </div>
       )}
-      <ol className="mt-1">
-        {steps.map((step, index) => (
+      <Reorder.Group as="ol" axis="y" values={order} onReorder={setDragOrder} className="mt-1">
+        {order.map((id) => byId.get(id)).map((step, index) => (
           <StepRow
             key={step.id}
             step={step}
@@ -56,9 +66,10 @@ export function StepsPanel({ isReference, referenceNumber, onOpenReference }) {
             }}
             onModelChange={(model) => dispatch({ type: "step/patch", stepId: step.id, patch: { model } })}
             onMove={(offset) => dispatch({ type: "step/move", stepId: step.id, offset })}
+            onDragEnd={finishDrag}
           />
         ))}
-      </ol>
+      </Reorder.Group>
     </PanelSection>
   );
 }

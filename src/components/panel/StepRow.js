@@ -1,6 +1,7 @@
 "use client";
 
-import { ChevronDown, Eye, EyeOff, SquareDashed } from "lucide-react";
+import { Reorder, useDragControls } from "motion/react";
+import { ChevronDown, Eye, EyeOff, GripVertical, SquareDashed } from "lucide-react";
 import { Menu } from "@/components/ui/Menu";
 import { cn } from "@/lib/cn";
 import { StrengthSlider } from "./StrengthSlider";
@@ -28,7 +29,9 @@ export function StepRow({
   onCommit,
   onModelChange,
   onMove,
+  onDragEnd,
 }) {
+  const dragControls = useDragControls();
   const modelItems = [{ value: "auto", label: step.modelHint, detail: "Picked for this kind of edit" }, ...MODELS];
   const modelLabel = modelItems.find((item) => item.value === step.model)?.label ?? step.modelHint;
 
@@ -39,14 +42,28 @@ export function StepRow({
   }
 
   return (
-    <li
+    <Reorder.Item
+      as="li"
+      value={step.id}
+      dragListener={false}
+      dragControls={dragControls}
+      onDragEnd={onDragEnd}
       aria-label={`Step ${number}: ${step.title}`}
       onKeyDown={handleKeyDown}
       className={cn(
-        "-mx-2.5 grid grid-cols-[22px_1fr_auto] items-start gap-x-2.5 rounded-field p-2.5 transition-[background-color,box-shadow] duration-200",
-        active ? "bg-white shadow-row" : "hover:bg-white/60",
+        "group relative -mx-2.5 grid grid-cols-[22px_1fr_auto] items-start gap-x-2.5 rounded-field p-2.5 transition-[background-color,box-shadow] duration-200",
+        active ? "bg-white shadow-row" : "bg-panel hover:bg-white/60",
       )}
     >
+      {!disabled && (
+        <span
+          aria-hidden="true"
+          onPointerDown={(event) => dragControls.start(event)}
+          className="absolute top-3 -left-4 grid h-5 w-3.5 cursor-grab touch-none place-items-center text-muted opacity-0 transition-opacity group-hover:opacity-100 active:cursor-grabbing pointer-coarse:hidden"
+        >
+          <GripVertical size={14} strokeWidth={2} />
+        </span>
+      )}
       <button
         type="button"
         aria-pressed={step.visible}
@@ -126,6 +143,6 @@ export function StepRow({
       </div>
 
       <span className={cn("pt-px text-sm", step.visible ? "text-ink-2" : "text-muted")}>{strengthLabel(step)}</span>
-    </li>
+    </Reorder.Item>
   );
 }
