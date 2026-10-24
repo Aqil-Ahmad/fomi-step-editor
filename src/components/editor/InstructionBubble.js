@@ -107,7 +107,7 @@ export function InstructionBubble({
       </div>
 
       {error && (
-        <p role="alert" className="mt-2.5 rounded-control bg-drift-bg px-2.5 py-2 text-sm text-drift">
+        <p role="alert" className="mt-2.5 rounded-control bg-drift-bg px-2.5 py-2 text-sm text-drift-ink">
           {error}
         </p>
       )}

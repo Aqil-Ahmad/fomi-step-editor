@@ -23,9 +23,11 @@
   --color-field: #f4f4f1;
   --color-track: #e2e2dd;
   --color-marker: #e1412c;
+  --color-marker-strong: #d63c28;
   --color-pass: #2b7a4b;
   --color-pass-bg: #e2efe6;
   --color-drift: #a9620c;
+  --color-drift-ink: #925409;
   --color-drift-bg: #f9ecd6;
   --color-sand: #e5d7c4;
   --color-sand-ink: #6b4e2c;

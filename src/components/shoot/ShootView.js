@@ -111,7 +111,7 @@ export function ShootView({ shoot, onOpenPhoto, onEditLook }) {
             role={state.jobError ? "alert" : undefined}
             className={cn(
               "mt-4 flex flex-wrap items-center justify-between gap-3 rounded-field px-4 py-3 text-ui",
-              state.jobError ? "bg-drift-bg text-drift" : "bg-white/70 text-ink-2",
+              state.jobError ? "bg-drift-bg text-drift-ink" : "bg-white/70 text-ink-2",
             )}
           >
             {state.jobError ?? `${summary.waiting} photos don't have the ${look.name.toLowerCase()} yet.`}

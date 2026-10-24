@@ -7,8 +7,8 @@ import styles from "./ChecksPanel.module.css";
 function summaryFor({ status, results }) {
   const failing = results.filter((check) => check.status === "fail").length;
   if (status === "running") return { text: "Checking…", tone: "text-muted" };
-  if (status === "error") return { text: "Didn't run", tone: "text-drift" };
-  if (failing > 0) return { text: `${failing} needs a fix`, tone: "text-drift" };
+  if (status === "error") return { text: "Didn't run", tone: "text-drift-ink" };
+  if (failing > 0) return { text: `${failing} needs a fix`, tone: "text-drift-ink" };
   return { text: "All passed", tone: "text-pass" };
 }
 
@@ -35,7 +35,7 @@ export function ChecksPanel({ title, checks, emptyText, onRetry, onFix, fixing }
       {checks.results.length === 0 && <p className="py-2 text-sm text-muted">{emptyText}</p>}
 
       {checks.status === "error" && (
-        <div role="alert" className="mb-2 flex items-center justify-between gap-3 rounded-control bg-drift-bg px-3 py-2 text-sm text-drift">
+        <div role="alert" className="mb-2 flex items-center justify-between gap-3 rounded-control bg-drift-bg px-3 py-2 text-sm text-drift-ink">
           {checks.error}
           <Button variant="line" size="sm" onClick={onRetry}>
             Try again
@@ -61,18 +61,18 @@ export function ChecksPanel({ title, checks, emptyText, onRetry, onFix, fixing }
                     "grid size-5 shrink-0 place-items-center rounded-full",
                     pending && "border-[1.5px] border-dashed border-input",
                     !pending && !failed && "bg-pass-bg text-pass",
-                    failed && "bg-drift-bg text-xs font-black text-drift",
+                    failed && "bg-drift-bg text-xs font-black text-drift-ink",
                   )}
                 >
                   {!pending && (failed ? "!" : <Check size={11} strokeWidth={3.6} />)}
                 </span>
                 <span className={cn("flex-1", pending && "text-ink-2")}>{check.title}</span>
-                <span className={cn("text-caption", failed ? "font-semibold text-drift" : "text-muted")}>
+                <span className={cn("text-caption", failed ? "font-semibold text-drift-ink" : "text-muted")}>
                   {pending ? "" : check.detail}
                 </span>
               </div>
               {failed && (
-                <div className="mb-2.5 ml-7.5 rounded-control bg-drift-bg p-2.5 text-sm text-drift">
+                <div className="mb-2.5 ml-7.5 rounded-control bg-drift-bg p-2.5 text-sm text-drift-ink">
                   <p>{check.reason}</p>
                   {check.fix && onFix && (
                     <Button variant="ink" size="sm" className="mt-2" disabled={fixing} onClick={() => onFix(check)}>

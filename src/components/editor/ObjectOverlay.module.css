@@ -55,7 +55,7 @@
 .selectionChip {
   top: max(8px, calc(var(--y0) - 32px));
   left: calc(var(--x0) + 6px);
-  background: var(--color-marker);
+  background: var(--color-marker-strong);
   color: var(--color-white);
 }
 
