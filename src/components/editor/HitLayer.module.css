@@ -1,0 +1,35 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+}
+
+.select {
+  cursor: pointer;
+}
+
+.lock {
+  cursor: copy;
+}
+
+.brush {
+  cursor: crosshair;
+}
+
+.trace {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.trace path {
+  fill: rgb(225 65 44 / 0.12);
+  stroke: var(--color-marker);
+  stroke-width: 2;
+  stroke-dasharray: 4 3;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
