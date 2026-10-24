@@ -11,12 +11,12 @@ const variants = {
   },
 };
 
-export function Segmented({ label, caption, options, value, onChange, variant = "solid", className }) {
+export function Segmented({ label, caption, captionClassName, options, value, onChange, variant = "solid", className }) {
   const styles = variants[variant];
 
   return (
     <div role="group" aria-label={label} className={cn("inline-flex items-center", styles.root, className)}>
-      {caption && <span className="pr-2 pl-1.5 text-caption text-muted">{caption}</span>}
+      {caption && <span className={cn("pr-2 pl-1.5 text-caption text-muted", captionClassName)}>{caption}</span>}
       {options.map((option) => (
         <button
           key={option.value}
