@@ -71,7 +71,13 @@ function WorkspaceLayout() {
       {view === "shoot" ? (
         <ShootView shoot={shoot} onOpenPhoto={openPhoto} onEditLook={() => setView("edit")} />
       ) : (
-        <EditView photoId={photoId} shoot={shoot} onOpenPhoto={openPhoto} onApply={applyToShoot} />
+        <EditView
+          photoId={photoId}
+          shoot={shoot}
+          onOpenPhoto={openPhoto}
+          onApply={applyToShoot}
+          onShowShoot={() => setView("shoot")}
+        />
       )}
     </div>
   );

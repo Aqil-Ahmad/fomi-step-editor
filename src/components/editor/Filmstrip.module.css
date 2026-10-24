@@ -56,3 +56,45 @@
   outline: 2px solid var(--color-ink);
   outline-offset: 2px;
 }
+
+@media (max-width: 1023.98px) {
+  .strip {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-top: 1px solid var(--color-line);
+    border-right: none;
+  }
+
+  .strip::after {
+    display: none;
+  }
+
+  .strip h2 {
+    margin: 0;
+  }
+
+  .list {
+    grid-auto-flow: column;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px;
+  }
+
+  .thumb {
+    width: 56px;
+    height: 70px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1535.98px) {
+  .strip h2 {
+    margin-left: 16px;
+  }
+
+  .thumb {
+    width: 64px;
+    height: 80px;
+  }
+}

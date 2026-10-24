@@ -24,7 +24,6 @@ export function LocksPanel({ onHighlight }) {
     <PanelSection
       title="Locked"
       count={locks.length}
-      labelId="locks-heading"
       action={
         <Button
           variant="ghost"

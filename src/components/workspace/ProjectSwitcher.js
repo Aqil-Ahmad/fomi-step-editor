@@ -19,7 +19,7 @@ export function ProjectSwitcher({ project }) {
         <button
           type="button"
           {...props}
-          className="flex h-9 items-center gap-2 rounded-control px-1.5 text-lg font-semibold hover:bg-ink/5 max-md:min-w-0"
+          className="flex h-9 max-w-full min-w-0 items-center gap-2 rounded-control px-1.5 text-lg font-semibold hover:bg-ink/5"
         >
           <span className="truncate">{project.name}</span>
           <ChevronDown aria-hidden="true" size={14} strokeWidth={2.4} className="shrink-0 text-ink-2" />

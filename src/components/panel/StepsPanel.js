@@ -27,7 +27,6 @@ export function StepsPanel({ isReference, referenceNumber, onOpenReference }) {
     <PanelSection
       title="Edit steps"
       count={steps.length}
-      labelId="steps-heading"
       action={
         <IconButton
           label="New step"

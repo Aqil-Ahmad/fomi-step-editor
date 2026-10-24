@@ -54,3 +54,29 @@
   border-radius: 4px;
   box-shadow: 0 0 0 3px rgb(169 98 12 / 0.18);
 }
+
+@media (max-width: 1023.98px) {
+  .card {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .crop {
+    height: 240px;
+  }
+
+  .details {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 639.98px) {
+  .card {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .crop {
+    height: 150px;
+    min-height: 0;
+  }
+}

@@ -26,7 +26,6 @@ export function ChecksPanel({ title, checks, emptyText, onRetry, onFix, fixing }
   return (
     <PanelSection
       title={title}
-      labelId="checks-heading"
       action={checks.results.length > 0 && <span className={cn("text-sm font-semibold", summary.tone)}>{summary.text}</span>}
     >
       <p className="sr-only" aria-live="polite">

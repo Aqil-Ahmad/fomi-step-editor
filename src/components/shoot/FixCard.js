@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { Lock } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/cn";
 import { boundingBox, clampBox } from "@/lib/geometry";
 import styles from "./FixCard.module.css";
 
@@ -52,7 +53,7 @@ export function FixCard({ photo, plan, outline, stepNumber, fixing, error, onFix
         <span aria-hidden="true" className={styles.letterBox} />
       </figure>
 
-      <div className="flex flex-col pt-1">
+      <div className={cn(styles.details, "flex flex-col pt-1")}>
         <span className="self-start rounded-chip bg-drift-bg px-2 py-1 text-xs font-bold text-drift">
           Photo {photo.n} needs a fix
         </span>

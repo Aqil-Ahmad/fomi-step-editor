@@ -3,6 +3,9 @@
 @theme {
   --font-sans: var(--font-mona), ui-sans-serif, system-ui, sans-serif;
 
+  --breakpoint-3xl: 120rem;
+  --breakpoint-4xl: 150rem;
+
   --color-studio: #e2e2de;
   --color-panel: #f7f7f4;
   --color-white: #ffffff;

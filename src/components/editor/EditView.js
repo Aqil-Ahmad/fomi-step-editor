@@ -1,91 +1,102 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/Button";
-import { useToast } from "@/components/ui/Toast";
-import { ChecksPanel } from "@/components/panel/ChecksPanel";
-import { LocksPanel } from "@/components/panel/LocksPanel";
-import { PanelFooter } from "@/components/panel/PanelFooter";
-import { StepsPanel } from "@/components/panel/StepsPanel";
-import { evaluateChecks } from "@/lib/checks";
-import { isInProgress, photoDisplay } from "@/lib/shoot";
+import { useEffect, useState } from "react";
+import { Images, ListChecks, SlidersHorizontal } from "lucide-react";
+import { EditPanel } from "@/components/panel/EditPanel";
+import { Sheet } from "@/components/ui/Sheet";
+import { cn } from "@/lib/cn";
+import { photoDisplay } from "@/lib/shoot";
 import { useEditorState, useWorkspace } from "@/state/WorkspaceProvider";
 import { Canvas } from "./Canvas";
 import { Filmstrip } from "./Filmstrip";
+import styles from "./EditView.module.css";
 
-function photoChecks(project, locks, photo, entry) {
-  const status = entry?.status ?? "original";
-  if (status === "original") return { status: "done", results: [], runId: photo.id };
-  const result = status === "drift" ? project.applyPlan.photos[photo.id] : null;
-  return {
-    status: isInProgress(status) ? "running" : "done",
-    results: evaluateChecks(project.checks, locks, result),
-    runId: `${photo.id}:${status}`,
-  };
+const COMPACT_QUERY = "(max-width: 1023.98px)";
+
+function checksSummary(checks) {
+  if (checks.status === "running") return "Checking";
+  const failing = checks.results.filter((check) => check.status === "fail").length;
+  return failing > 0 ? `${failing} to fix` : "All passed";
 }
 
-export function EditView({ photoId, shoot, onOpenPhoto, onApply }) {
-  const { statuses, fixing } = shoot.state;
-  const { project, actions } = useWorkspace();
+function BarButton({ icon: Icon, label, detail, onClick }) {
+  return (
+    <button type="button" onClick={onClick} className={styles.barButton}>
+      <Icon aria-hidden="true" size={18} strokeWidth={2} />
+      <span className="text-xs font-semibold">{label}</span>
+      {detail && <span className="text-2xs text-muted">{detail}</span>}
+    </button>
+  );
+}
+
+export function EditView({ photoId, shoot, onOpenPhoto, onApply, onShowShoot }) {
+  const { project, dispatch } = useWorkspace();
   const state = useEditorState();
-  const toast = useToast();
   const [highlightRegion, setHighlightRegion] = useState(null);
+  const [openSheet, setOpenSheet] = useState(null);
 
   const photo = project.photos.find((item) => item.id === photoId);
   const reference = project.photos.find((item) => item.id === project.referencePhotoId);
-  const isReference = photo.id === reference.id;
-  const displayFor = (item) => photoDisplay(item, statuses[item.id], project.applyPlan);
-  const otherPhotos = project.photos.length - 1;
+  const displayFor = (item) => photoDisplay(item, shoot.state.statuses[item.id], project.applyPlan);
+  const stepCount = state.doc.steps.length;
+  const closeSheet = () => setOpenSheet(null);
 
-  function saveLook() {
-    toast({
-      title: `${project.look.name} saved`,
-      description: `${state.doc.steps.length} steps and ${state.doc.locks.length} locks, ready for any shoot.`,
-    });
-  }
+  useEffect(() => {
+    if (window.matchMedia(COMPACT_QUERY).matches) dispatch({ type: "bubble/close" });
+  }, [dispatch]);
+
+  const panelProps = {
+    photo,
+    reference,
+    shoot,
+    onOpenPhoto,
+    onApply,
+    onHighlight: setHighlightRegion,
+  };
 
   return (
-    <div className="grid min-h-0 grid-cols-[120px_minmax(0,1fr)_376px]">
-      <Filmstrip photos={project.photos} currentId={photo.id} displayFor={displayFor} onOpen={onOpenPhoto} />
+    <div className={styles.layout}>
+      <Filmstrip
+        photos={project.photos}
+        currentId={photo.id}
+        displayFor={displayFor}
+        onOpen={onOpenPhoto}
+        className={styles.strip}
+      />
 
-      <Canvas photo={photo} display={displayFor(photo)} isReference={isReference} highlightRegion={highlightRegion} />
+      <Canvas
+        photo={photo}
+        display={displayFor(photo)}
+        isReference={photo.id === reference.id}
+        highlightRegion={highlightRegion}
+        className={styles.canvas}
+      />
 
-      <aside aria-label="Steps, locks and checks" className="flex min-h-0 flex-col border-l border-line bg-panel">
-        <div className="min-h-0 flex-1 divide-y divide-line-2 overflow-y-auto">
-          <StepsPanel
-            isReference={isReference}
-            referenceNumber={reference.n}
-            onOpenReference={() => onOpenPhoto(reference.id)}
-          />
-          <LocksPanel onHighlight={setHighlightRegion} />
-          {isReference ? (
-            <ChecksPanel
-              title={`Checks after step ${state.checks.afterStep}`}
-              checks={state.checks}
-              emptyText="Lock something to check it after every step."
-              onRetry={actions.rerunChecks}
-            />
-          ) : (
-            <ChecksPanel
-              title={`Checks on photo ${photo.n}`}
-              checks={photoChecks(project, state.doc.locks, photo, statuses[photo.id])}
-              emptyText="Checks run when the look is applied to this photo."
-              fixing={fixing?.photoId === photo.id}
-              onFix={() => shoot.fixPhoto(photo.id, "restore")}
-            />
-          )}
-        </div>
-        <PanelFooter note="Run the same steps and checks on the rest of the shoot.">
-          <div className="grid grid-cols-[auto_1fr] gap-2.5">
-            <Button variant="line" size="lg" onClick={saveLook}>
-              Save as look
-            </Button>
-            <Button variant="ink" size="lg" onClick={onApply}>
-              Apply to {otherPhotos} photos
-            </Button>
-          </div>
-        </PanelFooter>
+      <aside aria-label="Steps, locks and checks" className={cn(styles.panel, "border-l border-line bg-panel")}>
+        <EditPanel {...panelProps} />
       </aside>
+
+      <button type="button" onClick={() => setOpenSheet("panel")} className={styles.panelTrigger}>
+        <SlidersHorizontal aria-hidden="true" size={16} strokeWidth={2.2} />
+        Steps
+        <span className="grid h-5 min-w-5 place-items-center rounded-full bg-white/20 px-1.5 text-xs">{stepCount}</span>
+      </button>
+
+      <nav aria-label="Review" className={styles.bar}>
+        <BarButton icon={SlidersHorizontal} label="Steps" detail={String(stepCount)} onClick={() => setOpenSheet("steps")} />
+        <BarButton icon={ListChecks} label="Checks" detail={checksSummary(state.checks)} onClick={() => setOpenSheet("checks")} />
+        <BarButton icon={Images} label="Shoot" detail={`${project.photos.length} photos`} onClick={onShowShoot} />
+      </nav>
+
+      <Sheet side="right" title="Edit steps" open={openSheet === "panel"} onClose={closeSheet}>
+        <EditPanel {...panelProps} />
+      </Sheet>
+      <Sheet side="bottom" title="Steps and locks" open={openSheet === "steps"} onClose={closeSheet}>
+        <EditPanel {...panelProps} sections={["steps", "locks"]} />
+      </Sheet>
+      <Sheet side="bottom" title="Checks" open={openSheet === "checks"} onClose={closeSheet}>
+        <EditPanel {...panelProps} sections={["checks"]} showFooter={false} />
+      </Sheet>
     </div>
   );
 }
