@@ -7,12 +7,25 @@ import { ChecksPanel } from "@/components/panel/ChecksPanel";
 import { LocksPanel } from "@/components/panel/LocksPanel";
 import { PanelFooter } from "@/components/panel/PanelFooter";
 import { StepsPanel } from "@/components/panel/StepsPanel";
-import { photoDisplay } from "@/lib/shoot";
+import { evaluateChecks } from "@/lib/checks";
+import { isInProgress, photoDisplay } from "@/lib/shoot";
 import { useEditorState, useWorkspace } from "@/state/WorkspaceProvider";
 import { Canvas } from "./Canvas";
 import { Filmstrip } from "./Filmstrip";
 
-export function EditView({ photoId, statuses, onOpenPhoto, onApply }) {
+function photoChecks(project, locks, photo, entry) {
+  const status = entry?.status ?? "original";
+  if (status === "original") return { status: "done", results: [], runId: photo.id };
+  const result = status === "drift" ? project.applyPlan.photos[photo.id] : null;
+  return {
+    status: isInProgress(status) ? "running" : "done",
+    results: evaluateChecks(project.checks, locks, result),
+    runId: `${photo.id}:${status}`,
+  };
+}
+
+export function EditView({ photoId, shoot, onOpenPhoto, onApply }) {
+  const { statuses, fixing } = shoot.state;
   const { project, actions } = useWorkspace();
   const state = useEditorState();
   const toast = useToast();
@@ -45,12 +58,22 @@ export function EditView({ photoId, statuses, onOpenPhoto, onApply }) {
             onOpenReference={() => onOpenPhoto(reference.id)}
           />
           <LocksPanel onHighlight={setHighlightRegion} />
-          <ChecksPanel
-            title={`Checks after step ${state.checks.afterStep}`}
-            checks={state.checks}
-            emptyText="Lock something to check it after every step."
-            onRetry={actions.rerunChecks}
-          />
+          {isReference ? (
+            <ChecksPanel
+              title={`Checks after step ${state.checks.afterStep}`}
+              checks={state.checks}
+              emptyText="Lock something to check it after every step."
+              onRetry={actions.rerunChecks}
+            />
+          ) : (
+            <ChecksPanel
+              title={`Checks on photo ${photo.n}`}
+              checks={photoChecks(project, state.doc.locks, photo, statuses[photo.id])}
+              emptyText="Checks run when the look is applied to this photo."
+              fixing={fixing?.photoId === photo.id}
+              onFix={() => shoot.fixPhoto(photo.id, "restore")}
+            />
+          )}
         </div>
         <PanelFooter note="Run the same steps and checks on the rest of the shoot.">
           <div className="grid grid-cols-[auto_1fr] gap-2.5">

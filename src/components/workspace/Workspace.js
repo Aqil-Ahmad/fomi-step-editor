@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { MotionConfig } from "motion/react";
 import { EditView } from "@/components/editor/EditView";
+import { ShootView } from "@/components/shoot/ShootView";
 import { ToastProvider } from "@/components/ui/Toast";
+import { useShoot } from "@/hooks/useShoot";
 import { useShortcuts } from "@/hooks/useShortcuts";
 import { useWorkspaceUrl } from "@/hooks/useWorkspaceUrl";
-import { initialPhotoStatuses } from "@/lib/shoot";
 import { useEditorState, useWorkspace, WorkspaceProvider } from "@/state/WorkspaceProvider";
 import { TopBar } from "./TopBar";
 
@@ -57,13 +57,22 @@ function useEditorShortcuts({ view, setView }) {
 function WorkspaceLayout() {
   const { project, rootRef } = useWorkspace();
   const { view, photoId, setView, openPhoto } = useWorkspaceUrl(project);
-  const [statuses] = useState(() => initialPhotoStatuses(project));
+  const shoot = useShoot(project);
   useEditorShortcuts({ view, setView });
+
+  function applyToShoot() {
+    shoot.startApply();
+    setView("shoot");
+  }
 
   return (
     <div ref={rootRef} className="grid h-dvh grid-rows-[56px_minmax(0,1fr)] overflow-hidden bg-studio">
       <TopBar view={view} onViewChange={setView} />
-      <EditView photoId={photoId} statuses={statuses} onOpenPhoto={openPhoto} onApply={() => setView("shoot")} />
+      {view === "shoot" ? (
+        <ShootView shoot={shoot} onOpenPhoto={openPhoto} onEditLook={() => setView("edit")} />
+      ) : (
+        <EditView photoId={photoId} shoot={shoot} onOpenPhoto={openPhoto} onApply={applyToShoot} />
+      )}
     </div>
   );
 }
