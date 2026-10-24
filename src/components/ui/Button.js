@@ -1,9 +1,9 @@
 import { cn } from "@/lib/cn";
 
 const variants = {
-  ink: "bg-ink text-white hover:bg-ink-hover active:bg-black",
+  ink: "border-transparent bg-ink text-white hover:bg-ink-hover active:bg-black",
   line: "border-line bg-white text-ink hover:border-control hover:bg-panel",
-  ghost: "text-ink-2 hover:bg-ink/5 hover:text-ink",
+  ghost: "border-transparent text-ink-2 hover:bg-ink/5 hover:text-ink",
 };
 
 const sizes = {
@@ -14,7 +14,7 @@ const sizes = {
 
 export function buttonClasses({ variant = "line", size = "md", className } = {}) {
   return cn(
-    "inline-flex shrink-0 items-center justify-center gap-2 border border-transparent font-semibold leading-none whitespace-nowrap transition-[background-color,border-color,color,scale] duration-150 ease-out active:scale-98 disabled:cursor-not-allowed disabled:opacity-45 disabled:active:scale-100",
+    "inline-flex shrink-0 items-center justify-center gap-2 border font-semibold leading-none whitespace-nowrap transition-[background-color,border-color,color,scale] duration-150 ease-out active:scale-98 disabled:cursor-not-allowed disabled:opacity-45 disabled:active:scale-100",
     variants[variant],
     sizes[size],
     className,
