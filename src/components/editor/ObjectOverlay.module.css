@@ -1,0 +1,74 @@
+.outlines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.outlines path {
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+}
+
+.selectionOutline {
+  fill: rgb(225 65 44 / 0.07);
+  stroke: var(--color-marker);
+  stroke-width: 2;
+}
+
+.lockOutline {
+  fill: none;
+  stroke: var(--color-white);
+  stroke-width: 1.6;
+  stroke-dasharray: 5 4;
+}
+
+.hoverOutline {
+  fill: rgb(255 255 255 / 0.06);
+  stroke: rgb(255 255 255 / 0.9);
+  stroke-width: 1.5;
+}
+
+.highlightOutline {
+  fill: rgb(255 255 255 / 0.16);
+  stroke: var(--color-white);
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+}
+
+.chip {
+  position: absolute;
+  display: flex;
+  height: 24px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 9px;
+  border-radius: var(--radius-chip);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.selectionChip {
+  top: max(8px, calc(var(--y0) - 32px));
+  left: calc(var(--x0) + 6px);
+  background: var(--color-marker-strong);
+  color: var(--color-white);
+}
+
+.selectionChipInside {
+  top: auto;
+  bottom: 12px;
+  left: 12px;
+}
+
+.lockChip {
+  top: calc(var(--y0) + 2px);
+  left: calc(var(--x1) + 10px);
+  background: var(--color-white);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.18);
+  color: var(--color-ink);
+}

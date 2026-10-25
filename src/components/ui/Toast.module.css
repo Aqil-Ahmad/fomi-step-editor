@@ -1,0 +1,16 @@
+.progress {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-white);
+  transform-origin: left;
+  animation: fill var(--toast-progress-ms) linear forwards;
+}
+
+@keyframes fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}

@@ -1,0 +1,286 @@
+.canvas {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--color-studio);
+  container-type: size;
+}
+
+.header {
+  position: absolute;
+  top: 20px;
+  left: 22px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.crops {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+}
+
+.frame {
+  --reserve: clamp(80px, 100cqw - 608px, 496px);
+  --shift: max(0px, var(--reserve) - 336px);
+  --photo-h: min(100cqh - 184px, (100cqw - var(--reserve)) * 1.25);
+  --photo-w: calc(var(--photo-h) * 0.8);
+  --frame-left: calc((100cqw - var(--shift) - var(--photo-w)) / 2);
+  --pos: 47%;
+  position: absolute;
+  top: 74px;
+  left: var(--frame-left);
+  width: var(--photo-w);
+  height: var(--photo-h);
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  box-shadow: var(--shadow-photo);
+}
+
+.leftSide {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.rightSide {
+  clip-path: inset(0 0 0 var(--pos));
+}
+
+.leftTag {
+  position: absolute;
+  z-index: 6;
+  top: 14px;
+  right: calc(100% - var(--pos) + 12px);
+}
+
+.rightTag {
+  position: absolute;
+  z-index: 6;
+  top: 14px;
+  left: calc(var(--pos) + 12px);
+}
+
+.soloTag {
+  position: absolute;
+  z-index: 6;
+  top: 14px;
+  left: 14px;
+}
+
+.corner {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.corner::before,
+.corner::after {
+  content: "";
+  position: absolute;
+  background: var(--color-ink);
+}
+
+.corner::before {
+  width: 18px;
+  height: 1px;
+}
+
+.corner::after {
+  width: 1px;
+  height: 18px;
+}
+
+.topLeft {
+  top: 0;
+  left: 0;
+}
+
+.topLeft::before {
+  top: 0;
+  right: 8px;
+}
+
+.topLeft::after {
+  bottom: 8px;
+  left: 0;
+}
+
+.topRight {
+  top: 0;
+  right: 0;
+}
+
+.topRight::before {
+  top: 0;
+  left: 8px;
+}
+
+.topRight::after {
+  right: 0;
+  bottom: 8px;
+}
+
+.bottomLeft {
+  bottom: 0;
+  left: 0;
+}
+
+.bottomLeft::before {
+  right: 8px;
+  bottom: 0;
+}
+
+.bottomLeft::after {
+  top: 8px;
+  left: 0;
+}
+
+.bottomRight {
+  right: 0;
+  bottom: 0;
+}
+
+.bottomRight::before {
+  bottom: 0;
+  left: 8px;
+}
+
+.bottomRight::after {
+  top: 8px;
+  right: 0;
+}
+
+.bubbleAnchor {
+  position: absolute;
+  z-index: 20;
+  top: clamp(-40px, calc(var(--cy) - 92px), calc(100% - 220px));
+  left: min(calc(100% + 24px), calc(100cqw - var(--frame-left) - 284px));
+}
+
+.connector {
+  position: absolute;
+  z-index: 10;
+  top: calc(var(--cy) - 6px);
+  left: var(--x1);
+  width: calc(100% - var(--x1) + 24px);
+  height: 1.5px;
+  background: var(--color-marker);
+  pointer-events: none;
+}
+
+.connector::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid var(--color-white);
+  border-radius: 50%;
+  background: var(--color-marker);
+  translate: -50% -50%;
+}
+
+.palette {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  translate: -50% 0;
+}
+
+.headerTools {
+  margin-left: 6px;
+  align-self: center;
+}
+
+.cropMask {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cropFrame {
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 0 100vmax rgb(27 27 25 / 0.45);
+  outline: 1px solid rgb(255 255 255 / 0.85);
+  transition: inset 240ms var(--ease-out-soft);
+}
+
+.crop916 {
+  inset: 0 14.84375%;
+}
+
+.crop11 {
+  inset: 10% 0;
+}
+
+.cropLabel {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  padding: 3px 8px;
+  border-radius: var(--radius-chip);
+  background: rgb(255 255 255 / 0.92);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-semibold);
+}
+
+.shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 0.4) 50%, transparent 70%);
+  background-size: 250% 100%;
+  animation: sweep 1.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sweep {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -20% 0;
+  }
+}
+
+.lockNotice {
+  position: absolute;
+  z-index: 25;
+  top: calc(var(--y0) + 34px);
+  left: min(calc(var(--x1) + 10px), calc(100% - 120px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer {
+    animation: none;
+    background: rgb(255 255 255 / 0.2);
+  }
+
+  .cropFrame {
+    transition: none;
+  }
+}
+
+@media (max-width: 1023.98px) {
+  .bubbleAnchor {
+    position: fixed;
+    z-index: 40;
+    top: auto;
+    right: 16px;
+    bottom: calc(var(--bottom-inset, 0px) + 12px);
+    left: 16px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .connector {
+    display: none;
+  }
+}

@@ -1,0 +1,345 @@
+{
+  "id": "halo-spring",
+  "name": "Halo serum, spring launch",
+  "client": "Halo Skincare (fictional brand)",
+  "updatedAt": "2026-10-24T18:40:00Z",
+  "referencePhotoId": "1",
+  "collaborators": [
+    {
+      "id": "mk",
+      "initials": "MK",
+      "name": "Maya Khan",
+      "role": "Art director",
+      "online": true,
+      "tone": "sand"
+    },
+    {
+      "id": "yo",
+      "initials": "YO",
+      "name": "Yusuf Omar",
+      "role": "Retoucher",
+      "online": false,
+      "tone": "sage"
+    }
+  ],
+  "regions": {
+    "backdrop": "Backdrop",
+    "whole": "Whole photo",
+    "stones": "Stones",
+    "bottle": "Bottle",
+    "label": "Label"
+  },
+  "photos": [
+    {
+      "id": "1",
+      "n": 1,
+      "file": "halo-01.jpg",
+      "width": 4000,
+      "height": 5000,
+      "orig": "/media/shoot/p01-orig.webp",
+      "edit": "/media/shoot/p01-edit.webp",
+      "alt": "HALO serum bottle on a round stone plinth, front view",
+      "status": "reference"
+    },
+    {
+      "id": "2",
+      "n": 2,
+      "file": "halo-02.jpg",
+      "width": 4000,
+      "height": 5000,
+      "orig": "/media/shoot/p02-orig.webp",
+      "edit": "/media/shoot/p02-edit.webp",
+      "alt": "Low, close view of the HALO bottle on the plinth",
+      "status": "ready"
+    },
+    {
+      "id": "3",
+      "n": 3,
+      "file": "halo-03.jpg",
+      "width": 4000,
+      "height": 5000,
+      "orig": "/media/shoot/p03-orig.webp",
+      "edit": "/media/shoot/p03-edit.webp",
+      "alt": "High angle view of the bottle on the plinth",
+      "status": "original"
+    },
+    {
+      "id": "4",
+      "n": 4,
+      "file": "halo-04.jpg",
+      "width": 4000,
+      "height": 5000,
+      "orig": "/media/shoot/p04-orig.webp",
+      "edit": "/media/shoot/p04-edit.webp",
+      "alt": "Three-quarter view of the bottle from the left",
+      "status": "original"
+    },
+    {
+      "id": "5",
+      "n": 5,
+      "file": "halo-05.jpg",
+      "width": 4000,
+      "height": 5000,
+      "orig": "/media/shoot/p05-orig.webp",
+      "edit": "/media/shoot/p05-edit.webp",
+      "alt": "Wide view with the stone slab and a dark pebble",
+      "status": "original"
+    },
+    {
+      "id": "6",
+      "n": 6,
+      "file": "halo-06.jpg",
+      "width": 4000,
+      "height": 5000,
+      "orig": "/media/shoot/p06-orig.webp",
+      "edit": "/media/shoot/p06-edit.webp",
+      "alt": "Close-up of the HALO label",
+      "status": "original"
+    },
+    {
+      "id": "7",
+      "n": 7,
+      "file": "halo-07.jpg",
+      "width": 4000,
+      "height": 5000,
+      "orig": "/media/shoot/p07-orig.webp",
+      "edit": "/media/shoot/p07-edit.webp",
+      "alt": "The bottle lying on its side on the plinth",
+      "status": "original"
+    },
+    {
+      "id": "8",
+      "n": 8,
+      "file": "halo-08.jpg",
+      "width": 4000,
+      "height": 5000,
+      "orig": "/media/shoot/p08-orig.webp",
+      "edit": "/media/shoot/p08-edit.webp",
+      "alt": "Top-down view of the bottle lying on the plinth",
+      "status": "original"
+    },
+    {
+      "id": "9",
+      "n": 9,
+      "file": "halo-09.jpg",
+      "width": 4000,
+      "height": 5000,
+      "orig": "/media/shoot/p09-orig.webp",
+      "edit": "/media/shoot/p09-edit.webp",
+      "alt": "Three-quarter view of the bottle from the right",
+      "status": "original"
+    },
+    {
+      "id": "10",
+      "n": 10,
+      "file": "halo-10.jpg",
+      "width": 4000,
+      "height": 5000,
+      "orig": "/media/shoot/p10-orig.webp",
+      "edit": "/media/shoot/p10-edit.webp",
+      "alt": "Low hero angle looking up at the bottle",
+      "status": "original"
+    },
+    {
+      "id": "11",
+      "n": 11,
+      "file": "halo-11.jpg",
+      "width": 4000,
+      "height": 5000,
+      "orig": "/media/shoot/p11-orig.webp",
+      "edit": "/media/shoot/p11-edit.webp",
+      "alt": "Wide view from the left with the stone slab",
+      "status": "original"
+    },
+    {
+      "id": "12",
+      "n": 12,
+      "file": "halo-12.jpg",
+      "width": 4000,
+      "height": 5000,
+      "orig": "/media/shoot/p12-orig.webp",
+      "edit": "/media/shoot/p12-edit.webp",
+      "alt": "Close-up of the dropper top and label",
+      "status": "original"
+    }
+  ],
+  "editor": {
+    "photoId": "1",
+    "variantPattern": "/media/editor/p01-b{b}-l{l}-s{s}.webp",
+    "variantKeys": [
+      "b",
+      "l",
+      "s"
+    ],
+    "dustOverlay": "/media/editor/p01-dust.png",
+    "renderSize": {
+      "width": 1216,
+      "height": 1520
+    }
+  },
+  "look": {
+    "id": "spring",
+    "name": "Spring look",
+    "steps": [
+      {
+        "id": "s1",
+        "title": "Change backdrop to sage paper",
+        "region": "backdrop",
+        "instruction": "Sage paper sweep, soft and even",
+        "strength": 1,
+        "visible": true,
+        "model": "auto",
+        "modelHint": "Auto, best for backgrounds",
+        "effect": {
+          "kind": "variant",
+          "key": "b"
+        }
+      },
+      {
+        "id": "s2",
+        "title": "Add late sun through palm leaves",
+        "region": "whole",
+        "instruction": "Warm late-afternoon sun from the right, palm leaf shadows on the wall",
+        "strength": 0.7,
+        "visible": true,
+        "model": "auto",
+        "modelHint": "Auto, best for relighting",
+        "effect": {
+          "kind": "variant",
+          "key": "l"
+        }
+      },
+      {
+        "id": "s3",
+        "title": "Change stones to honed travertine",
+        "region": "stones",
+        "instruction": "Honed travertine, warm beige, small natural pits",
+        "strength": 0.85,
+        "visible": true,
+        "model": "auto",
+        "modelHint": "Auto, best for materials",
+        "effect": {
+          "kind": "variant",
+          "key": "s"
+        },
+        "suggestions": [
+          "Lighter",
+          "Fewer pits",
+          "Match photo 4"
+        ]
+      },
+      {
+        "id": "s4",
+        "title": "Remove dust and fingerprints",
+        "region": "bottle",
+        "instruction": "Clean dust, lint and fingerprints on the glass",
+        "strength": 1,
+        "visible": true,
+        "model": "auto",
+        "modelHint": "Auto, best for clean-up",
+        "showStrengthAs": "Auto",
+        "effect": {
+          "kind": "overlay",
+          "src": "/media/editor/p01-dust.png",
+          "showWhen": "off"
+        }
+      }
+    ]
+  },
+  "locks": [
+    {
+      "id": "label",
+      "title": "Label",
+      "detail": "Text, colours and print stay exactly the same",
+      "region": "label",
+      "kind": "content"
+    },
+    {
+      "id": "shape",
+      "title": "Bottle shape",
+      "detail": "Outline, size and glass colour stay the same",
+      "region": "bottle",
+      "kind": "shape"
+    }
+  ],
+  "checks": [
+    {
+      "id": "label",
+      "title": "Label matches the original",
+      "lockId": "label",
+      "passDetail": "0 changes"
+    },
+    {
+      "id": "shape",
+      "title": "Bottle shape unchanged",
+      "lockId": "shape",
+      "passDetail": "0 changes"
+    },
+    {
+      "id": "crops",
+      "title": "Nothing important cropped",
+      "passDetail": "4:5, 9:16, 1:1"
+    },
+    {
+      "id": "light",
+      "title": "Same light direction in every photo",
+      "scope": "shoot"
+    }
+  ],
+  "exportSizes": [
+    {
+      "id": "4x5",
+      "label": "4:5 for Instagram",
+      "pixels": "2400 × 3000",
+      "checked": true
+    },
+    {
+      "id": "9x16",
+      "label": "9:16 for Stories",
+      "pixels": "1080 × 1920",
+      "checked": true
+    },
+    {
+      "id": "1x1",
+      "label": "1:1 for the shop",
+      "pixels": "2000 × 2000",
+      "checked": true
+    }
+  ],
+  "applyPlan": {
+    "order": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "12",
+      "11"
+    ],
+    "msPerPhoto": [
+      700,
+      1150
+    ],
+    "photos": {
+      "6": {
+        "result": "drift",
+        "failedCheck": "label",
+        "file": "/media/shoot/p06-drift.webp",
+        "reason": "Step 3 redrew the L in HALO as an I.",
+        "fix": "Restore label",
+        "stepId": "s3",
+        "label": "Label changed",
+        "headline": "The model changed a letter on the label",
+        "explanation": "The label is locked, so we stopped before export. Restore puts the original label back and keeps the new background and light."
+      },
+      "11": {
+        "slow": true,
+        "extraMs": 6000
+      }
+    }
+  }
+}
